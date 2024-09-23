@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 class Jobs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    company = db.Column(db.String(50),nullable=False)
+    company = db.Column(db.String(50),nullable=False, unique=True)
     jobTitle =  db.Column(db.String(60), nullable=False, unique=True)
 
     def __init__(self, company, jobTitle):
@@ -53,14 +53,22 @@ class User(db.Model):
 
 class Admin(User):
     __tablename__ = 'admin'
-    staff_id = db.Column(db.Integer, unique=True)
+    staffID = db.Column(db.Integer, unique=True)
     __mapper_args__ = {
       'polymorphic_identity': 'admin',
   }
 
-    def __init__(self, staff_id, fName, lName):
+    def __init__(self, staffID, fName, lName):
         super().__init__(fName, lName)
-        self.staff_id = staff_id
+        self.staffID = staffID
+
+    def get_json(self):
+        return {
+            "id" : self.id,
+            'fName': self.fName,
+            'lName': self.lName,
+            'staffID': self.staffID
+        }
 
 class Applicant(User):
     __tablename__ = 'applicant'
@@ -80,3 +88,11 @@ class Applicant(User):
     
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    def get_json(self):
+        return {
+            "id" : self.id,
+            'fName': self.fName,
+            'lName': self.lName,
+            'username': self.username
+        }
