@@ -5,6 +5,7 @@ from flask.cli import with_appcontext, AppGroup
 from App.database import db, get_migrate
 from App.models import User
 from App.main import create_app
+from App.models import models
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
 from App.controllers import (
     create_admin, sign_up_applicant, apply_to_job, create_job, 
@@ -136,8 +137,20 @@ def view_all_applicants_by_jobID_command(staffID,fName,id):
     for i in range(len(appList)):
         print(f"{i} | ID: {applicant_info[i]['id']} {applicant_info[i]['name']}")
 
+@jobBoard.command("view_app_by_id", help="Given an admin ID, company and title, it creates a new job entry")
+@click.argument("staffID", default="string")
+@click.argument("fName", default="string")
+@click.argument("company", default="string")
+@click.argument("jobTitle", default="string")
+def create_job_command(company,jobTitle, staffID, fName):
+    pass
 
-
+@jobBoard.command("view_app_by_id", help="Given an applicant ID and job ID, it applies to a job")
+@click.argument("staffID", default="string")
+@click.argument("fName", default="string")
+@click.argument("id", default="string")
+def apply_to_job_command():
+    pass
 
 
 
