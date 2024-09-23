@@ -61,16 +61,6 @@ def get_all_applicants_by_jobID(id):
     applicants = [job.get_json() for job in jobsList]
     return applicants
 
-#view applicants by company -------------------------------
-
-def get_applicants_by_company(companyName):
-    companyOfferings = Jobs.query.filter_by(company=companyName)
-    if not company:
-        print("Error finding company!!!")
-        return
-    #jobsList = [job.get_json() for job in companyOfferings]
-    #return jobsList
-
 #view jobs by company 
 def get_jobs_by_company(companyName):
     companyOfferings = Jobs.query.filter_by(company=companyName)
