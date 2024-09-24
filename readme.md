@@ -83,7 +83,7 @@ As an aside, the descriptions which start with [ADMIN] can only be executed when
 flask job create_job 1 Emma BrightTech "Graphic Designer"
 ```
 This command creates a new job with the job title "Graphic Designer" at the company "BrightTech", with the admin user "Emma" (staff ID 1).
-
+---
 
 ```bash
 flask job apply_to_job 1 5
