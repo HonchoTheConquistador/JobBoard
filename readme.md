@@ -82,7 +82,7 @@ As an aside, the descriptions which start with [ADMIN] can only be executed when
 ```bash
 flask job create_job 1 Emma BrightTech "Graphic Designer"
 ```
->> This command creates a new job with the job title "Graphic Designer" at the company "BrightTech", with the admin user "Emma" (staff ID 1).
+> This command creates a new job with the job title "Graphic Designer" at the company "BrightTech", with the admin user "Emma" (staff ID 1).
 
 
 ```bash
@@ -94,46 +94,46 @@ flask job apply_to_job 1 5
 ```bash
 flask job view_app_by_id 1 Emma 1
 ```
-This command displays all the applicants associated with the job with ID 1 (Graphic Designer at BrightTech), for the admin user "Emma" (staff ID 1).
+> This command displays all the applicants associated with the job with ID 1 (Graphic Designer at BrightTech), for the admin user "Emma" (staff ID 1).
 
 
 ```bash
 flask job newapp "Ethan" "Wilson" "ewilson23" "password123"
 ```
-This command creates a new applicant with the first name "Ethan", last name "Wilson", username "ewilson23", and password "password123".
+> This command creates a new applicant with the first name "Ethan", last name "Wilson", username "ewilson23", and password "password123".
 
 
 ```bash
 flask job view_applicants 2 Ava
 ```
-This command displays all the applicants for the admin user "Ava" (staff ID 2).
+> This command displays all the applicants for the admin user "Ava" (staff ID 2).
 
 
 ```bash
 flask job companyjobs "TechCorp"
 ```
-This command displays all the jobs offered by the company "TechCorp".
+> This command displays all the jobs offered by the company "TechCorp".
 
 
 ```bash
 flask job alljobs
 ```
-This command displays all the jobs offered.
+> This command displays all the jobs offered.
 
 
 ```bash
 flask job create_admin "Emma" "Miller"
 ```
-This command creates a new admin with the first name "Emma" and last name "Miller".
+> This command creates a new admin with the first name "Emma" and last name "Miller".
 
 
 ```bash
 flask job view_admins
 ```
-This command displays all the admins.
+> This command displays all the admins.
 
 
 ```bash
 flask job view_mem
 ```
-This command displays all the members.
+> This command displays all the members.
