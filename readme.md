@@ -1,9 +1,33 @@
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/HonchoTheConquistador/JobBoard)
+# COMP 3613 A1 - Job Board 
 
-# Flask Commands
+## Brief Introduction 
+This repository houses a code solution for the job board problem.
 
-wsgi.py is a utility script for performing various tasks related to the project. You can use it to import and test any code in the project. 
-You just need create a manager command function, for example:
+## Contents
+
+1. Problem Definition
+2. Explanation of Solution 
+3. Outline of CLI functionality
+
+## Problem Definition 
+
+Currently there is a need for a CLI application to assist with the management of a job board.
+The requirements are as follows: 
+
+An app to post job openings and view the applicants
+•	Create Job
+•	View Jobs
+•	Apply to Job
+•	View Job applicants
+
+## Explanation of Solution 
+
+To alleviate the problems of the user, a CLI application was constructed. Utilising the [flaskmvc](https://github.com/uwidcit/flaskmvc) template, this solution 
+implemented the four requirements outlined in the problem definition definition in the python programming language.
+
+
+## Outline of CLI functionality 
+
 
 ```bash
 $ flask init
@@ -24,5 +48,3 @@ def create_user_command(username, password):
 app.cli.add_command(user_cli) # add the group to the cli
 
 ```
-
-Then execute the command invoking with flask cli with command name and the relevant parameters
