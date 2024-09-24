@@ -47,15 +47,15 @@ $ flask job
 The available commands are as follows along with their description:
 
 Commands:
-    alljobs          Displays all jobs offered
-    apply_to_job     Given an applicant ID and job ID, applies the applicant to a job
-    companyjobs      Displays all jobs offered by a company
-    create_admin     Adds a new admin to the database
-    create_job       [ADMIN] Given an admin ID, company and title, it creates a new job entry
-    newapp           Adds a new applicant to the database
-    view_admins      Displays all admins
-    view_app_by_id   [ADMIN] Displays all applicants associated with a given job ID
-    view_applicants  [ADMIN] Displays all applicants
-    view_mem         Displays all members
+- alljobs          Displays all jobs offered
+- apply_to_job     Given an applicant ID and job ID, applies the applicant to a job
+- companyjobs      Displays all jobs offered by a company
+- create_admin     Adds a new admin to the database
+- create_job       [ADMIN] Given an admin ID, company and title, it creates a new job entry
+- newapp           Adds a new applicant to the database
+- view_admins      Displays all admins
+- view_app_by_id   [ADMIN] Displays all applicants associated with a given job ID
+- view_applicants  [ADMIN] Displays all applicants
+- view_mem         Displays all members
 
 As an aside, the descriptions which start with [ADMIN] can only be executed when the right staff id and first name combination are entered
