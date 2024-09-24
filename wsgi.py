@@ -102,6 +102,7 @@ def sign_up_applicant_command(fname,lname,username,password):
 def get_jobs_by_company_command(company):
     jobList = get_jobs_by_company(company)
     if not jobList:
+        print("Error finding company!!!")
         return
     print(f'Jobs offered by {company}:')
     if len(jobList) ==0: print("No Jobs Available...")
@@ -116,33 +117,34 @@ def display_all_jobs():
     for i in range(len(jobsList)):
         print(f'{i} | {jobsList[i]["jobTitle"]} | Company: {jobsList[i]["company"]}')
 
-@jobBoard.command("view_applicants", help="Displays all applicants")
+@jobBoard.command("view_applicants", help="[ADMIN] Displays all applicants")
 @click.argument("staffid", default="string")
 @click.argument("fname", default="string")
-def view_all_applicants_command(staffid,fname):
-    appList = get_all_applicants(staffid,fname)
-    if not appList:
+def view_all_applicants_command(staffid,fname):  #include company as well
+    applicant_info = get_all_applicants(staffid,fname)
+    if not applicant_info:
         return
     print("___APPLICANT LIST___")
-    for i in range(len(appList)):
-        print(f"{i} | ID: {applicant_info[i]['id']} {applicant_info[i]['name']}")
+    for i in range(len(applicant_info)):
+        print(f"{i} | ID: {applicant_info[i]['id']} {applicant_info[i]['name']} - {applicant_info[i]['company']} - {applicant_info[i]['jobTitle']}")
 
-@jobBoard.command("view_app_by_id", help="Displays all applicants associated with a given job ID")
+@jobBoard.command("view_app_by_id", help="[ADMIN] Displays all applicants associated with a given job ID")
 @click.argument("staffid", default="string")
 @click.argument("fname", default="string")
 @click.argument("id", default="string")
 def view_all_applicants_by_jobID_command(staffid,fname,id):
     jobID = int(id)
-    appList = get_all_applicants_by_jobID(staffid,fname,jobID)
-    if not appList:
+    applicant_info,job_info = get_all_applicants_by_jobID(staffid,fname,jobID)
+    if not applicant_info:
         return
     print("___APPLICANT LIST___")
-    for i in range(len(appList)):
+    print(f"Company: {job_info['company']} - Job Title: {job_info['jobTitle']}")
+    for i in range(len(applicant_info)):
         print(f"{i} | ID: {applicant_info[i]['id']} {applicant_info[i]['name']}")
 
-@jobBoard.command("create_job", help="Given an admin ID, company and title, it creates a new job entry")
-@click.argument("staffid", default="string")
-@click.argument("fname", default="string")
+@jobBoard.command("create_job", help="[ADMIN] Given an admin ID, company and title, it creates a new job entry")
+@click.argument("staffid", default="")
+@click.argument("fname", default="")
 @click.argument("company", default="string")
 @click.argument("jobtitle", default="string")
 def create_job_command(company,jobtitle, staffid, fname):

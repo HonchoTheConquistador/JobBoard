@@ -20,8 +20,8 @@ def sign_up_applicant(fName,lName,username,password):
 #view jobs by company 
 def get_jobs_by_company(companyName):
     companyOfferings = Jobs.query.filter_by(company=companyName)
-    if not company:
-        print("Error finding company!!!")
+    if not companyOfferings:
+        
         return None
     jobsList = [job.get_json() for job in companyOfferings]
     return jobsList
@@ -46,36 +46,43 @@ def get_all_applicants(staffID, fName):
     jobApplications = JobApplications.query.all()
     if not jobApplications:
         print(f"No applicants found!!!")
-        return
-
-    print(f"All Job Applicants:")
+        return None
+    applicants_list = []
     for application in jobApplications:
         # Get the applicant information
         applicant = Applicant.query.get(application.userID)
+        job = Jobs.query.get(application.jobID)
         if applicant:
-            applicant_info = {
-                'id': applicant.id,
-                'name': f"{applicant.fName} {applicant.lName}"
-            }
+            if job:
+                applicant_info = {
+                    'id': applicant.id,
+                    'name': f"{applicant.fName} {applicant.lName}",
+                    'company': f"{job.company}",
+                    'jobTitle': f"{job.jobTitle}"
+                }
+            else:
+                print("Error in both Applicant and Job!!!")
+                return None
             applicants_list.append(applicant_info)
         else:
             print(f"- Unknown applicant (ID: {application.userID})")
+            return None 
 
     return applicants_list
 
 #view applicants by job id -----------admin--------
 def get_all_applicants_by_jobID(staffID, fName, id):
     # Verify admin
-    findAdmin = Admin.query.filter_by(staffID=staffID, fName=fName).first()
+    findAdmin = Admin.query.filter_by(id=staffID, fName=fName).first()
     if not findAdmin:
         print("Error: Invalid admin credentials")
-        return None
+        return None, None
 
     # Get all job applications for the given job ID
     jobApplications = JobApplications.query.filter_by(jobID=id).all()
     if not jobApplications:
         print(f"No applicants found for job ID: {id}")
-        return None
+        return None, None
 
     applicants_list = []
 
@@ -92,22 +99,23 @@ def get_all_applicants_by_jobID(staffID, fName, id):
             
         else:
             print(f"- Unknown applicant (ID: {application.userID})")
-
-    return applicants_list
+    job = Jobs.query.get(id)
+    job_info = job.get_json()
+    return applicants_list, job_info
 
 #create Job ------------------------------admin-------------
 
 def create_job(company,jobTitle, staffID, fName):
-    job = Jobs(company, jobTitle)
+    
     findAdmin = Admin.query.filter_by(id=staffID,fName=fName).first()
     jobCheck = Jobs.query.filter_by(company=company,jobTitle=jobTitle).first()
-    if jobCheck:
+    if jobCheck: #checks if job exists
         print("Job already exists!!!")
         return None
     if not findAdmin:
         print("Not a valid administrator!!!")
         return None
-    
+    job = Jobs(company, jobTitle)
     db.session.add(job)
     db.session.commit()
     jobInfo = job.get_json()
@@ -120,15 +128,15 @@ def apply_to_job(jobID,userID):
     user = Applicant.query.filter_by(id=userID).first()
     if not job: # Job does not exist  
         print("Job does not exist!!!")
-        return None
+        return None, None
     if not user:
         print("Error: User was not able to be apply!!")
-        return None
+        return None,None
     allJobs = JobApplications.query.filter_by(jobID=jobID,userID=userID).first()
     newJobApplication = JobApplications(jobID,userID)
     if allJobs: #checks to see if the job application exists already
         print("Job application already exists!!!")
-        return None 
+        return None, None 
     db.session.add(newJobApplication)
     db.session.commit()
     userInfo = user.get_json()
