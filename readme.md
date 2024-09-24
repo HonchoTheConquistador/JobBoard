@@ -88,7 +88,7 @@ flask job create_job 1 Emma BrightTech "Graphic Designer"
 ```bash
 flask job apply_to_job 1 5
 ```
-This command applies the user with ID 5 (Aiden Jones) to the job with ID 1 (Graphic Designer at BrightTech).
+> This command applies the user with ID 5 (Aiden Jones) to the job with ID 1 (Graphic Designer at BrightTech).
 
 
 ```bash
