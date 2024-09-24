@@ -1,4 +1,5 @@
 from .user import create_user
+from .models import *
 from App.database import db
 
 

@@ -1,10 +1,10 @@
-from App.models import models
+from App.models.models import *
 from App.database import db
 
 #create admin 
 
 def create_admin(fName,lName):
-    newAdmin = Admin(fName=fName,lName=lName)
+    newAdmin = Admin(fName,lName)
     db.session.add(newAdmin)
     db.session.commit()
     return newAdmin
@@ -39,9 +39,9 @@ def get_all_jobs():
 
 def get_all_applicants(staffID, fName):
     jobsList = JobApplications.query.all()
-    findAdmin = Admin.query.filter_by(staffID=staffID,fName=fName).first()
+    findAdmin = Admin.query.filter_by(id=staffID,fName=fName).first()
     if not findAdmin:
-        print("Error!!!")
+        print("Error, not an administrator!!!")
         return None
     jobApplications = JobApplications.query.all()
     if not jobApplications:
@@ -99,31 +99,54 @@ def get_all_applicants_by_jobID(staffID, fName, id):
 
 def create_job(company,jobTitle, staffID, fName):
     job = Jobs(company, jobTitle)
-    findAdmin = Admin.query.filter_by(staffID=staffID,fName=fName).first()
+    findAdmin = Admin.query.filter_by(id=staffID,fName=fName).first()
     jobCheck = Jobs.query.filter_by(company=company,jobTitle=jobTitle).first()
     if jobCheck:
         print("Job already exists!!!")
-        return
+        return None
     if not findAdmin:
         print("Not a valid administrator!!!")
-        return
-    print("Successfully added a job!")
+        return None
+    
     db.session.add(job)
     db.session.commit()
-    return
+    jobInfo = job.get_json()
+    return jobInfo
 
 #apply to job 
 
 def apply_to_job(jobID,userID):
-    job = Jobs.query.filter_by(jobID=jobID).first()
+    job = Jobs.query.filter_by(id=jobID).first()
     user = Applicant.query.filter_by(id=userID).first()
-    if not job or not user:
-        print("Error applying to job!!!")
+    if not job: # Job does not exist  
+        print("Job does not exist!!!")
+        return None
+    if not user:
+        print("Error: User was not able to be apply!!")
+        return None
     allJobs = JobApplications.query.filter_by(jobID=jobID,userID=userID).first()
     newJobApplication = JobApplications(jobID,userID)
     if allJobs: #checks to see if the job application exists already
         print("Job application already exists!!!")
-        return
+        return None 
     db.session.add(newJobApplication)
     db.session.commit()
-    return
+    userInfo = user.get_json()
+    jobInfo = job.get_json()
+    return userInfo, jobInfo
+
+def view_all_admins():
+    admins = Admin.query.all()
+    if not admins:
+        print("No admins available!!!")
+        return 
+    for admin in admins:
+        print(f"{admin.id} - {admin.fName} {admin.lName}")
+
+def view_all_members(): #views all registered members, applicant or not
+    apps = Applicant.query.all()
+    if not apps:
+        print("No applicants available!!!")
+        return 
+    for app in apps:
+        print(f"{app.id} - {app.fName} {app.lName}")
