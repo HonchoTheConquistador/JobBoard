@@ -1,15 +1,13 @@
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/HonchoTheConquistador/JobBoard)
-<a href="https://render.com/deploy?repo=https://github.com/uwidcit/flaskmvc">
-  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
-</a>
-
-![Tests](https://github.com/uwidcit/flaskmvc/actions/workflows/dev.yml/badge.svg)
-
 
 # Flask Commands
 
 wsgi.py is a utility script for performing various tasks related to the project. You can use it to import and test any code in the project. 
 You just need create a manager command function, for example:
+
+```bash
+$ flask init
+```
 
 ```python
 # inside wsgi.py
