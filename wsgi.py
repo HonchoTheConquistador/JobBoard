@@ -110,7 +110,8 @@ def get_jobs_by_company_command(company):
         print(job['jobTitle'])
 
 @jobBoard.command("alljobs", help="Displays all jobs offered")
-def display_all_jobs():
+def display_all_jobs(): 
+    
     jobsList = get_all_jobs()
     print("___JOBS OFFERED___")
     if len(jobsList) ==0: print("No Jobs Available...")
