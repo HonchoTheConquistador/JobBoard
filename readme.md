@@ -15,10 +15,10 @@ Currently there is a need for a CLI application to assist with the management of
 The requirements are as follows: 
 
 An app to post job openings and view the applicants
-•	Create Job
-•	View Jobs
-•	Apply to Job
-•	View Job applicants
+- Create Job
+- View Jobs
+- Apply to Job
+- View Job applicants
 
 ## Explanation of Solution 
 
